@@ -9,9 +9,10 @@ import java.util.List;
 
 public class Main {
     private final static UserService userService = new UserServiceImpl();
+
+
     public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
-
         userService.createUsersTable();
 
         userService.saveUser("Ivan", "Ivanov", (byte) 25);
@@ -25,5 +26,8 @@ public class Main {
         userService.cleanUsersTable();
         userService.dropUsersTable();
 
+
     }
+
 }
+
