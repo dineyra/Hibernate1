@@ -72,6 +72,23 @@ public class UserDaoHibernateImpl implements UserDao {
         }
     }
 
+    public void saveUser(User user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(user);
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            session.close();
+        }
+    }
+
+
     @Override
     public void removeUserById(long id) {
         Session session = sessionFactory.openSession();
