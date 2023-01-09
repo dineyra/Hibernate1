@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -109,22 +109,23 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> list = new ArrayList<>();
         Session session = sessionFactory.openSession();
-        CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder().createQuery(User.class);
-        criteriaQuery.from(User.class);
-        Transaction transaction = session.beginTransaction();
-        List<User> userList = session.createQuery(criteriaQuery).getResultList();
+        Transaction transaction = null;
         try {
+            transaction = session.beginTransaction();
+            list = session.createCriteria(User.class).list();
             transaction.commit();
-            return userList;
-        } catch (HibernateException e) {
-            e.printStackTrace(); {
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
                 transaction.rollback();
             }
         } finally {
-            session.close();
+            if (session != null)
+                session.close();
         }
-        return userList;
+        return list;
     }
 
     @Override
