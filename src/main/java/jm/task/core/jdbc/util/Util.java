@@ -8,63 +8,36 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class Util {
     // реализуйте настройку соеденения с БД
 
-
-    private static String url = "jdbc:mysql://127.0.0.1";
-    private static String port = "3306";
-    private static String user = "root";
-    private static String dbName = "mydb";
-    private static String password = "root";
-
-//    public static Connection getConnection() {
-//        try {
-//            MySQLConnector mySqlConnector = new MySQLConnector(url, port, dbName, user, password);
-//            return mySqlConnector.getConnection();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    public static void main(String args[]) {
-//
-//        System.out.println(getConnection());
-//    }
+    final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +  "&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    final static String USERNAME = "root";
+    final static String PASSWORD = "root";
 
 
-
-
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String HOST = "jdbc:mysql://localhost:3306/mydb?useSSL=false&allowMultiQueries=true&serverTimezone=UTC";
-    private static final String LOGIN = "root";
-    private static final String PASSWORD = "root";
-    private static SessionFactory sessionFactory = null;
-
-    public static SessionFactory getConnection() {
-
+    public static Connection getConnection() {
+        Connection connection = null;
         try {
-            org.hibernate.cfg.Configuration configuration = new Configuration()
-                    .setProperty("hibernate.connection.driver_class", DRIVER)
-                    .setProperty("hibernate.connection.url", HOST)
-                    .setProperty("hibernate.connection.username", LOGIN)
-                    .setProperty("hibernate.connection.password", PASSWORD)
-                    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect")
-                    .addAnnotatedClass(User.class)
-                    .setProperty("hibernate.c3p0.min_size","5")
-                    .setProperty("hibernate.c3p0.max_size","200")
-                    .setProperty("hibernate.c3p0.max_statements","200");
-
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            if (!connection.isClosed()) {
+                System.out.println("Соединение с БД установлено");
+            }
+            return connection;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return sessionFactory;
     }
+
+
+
+
+
 
 
 }

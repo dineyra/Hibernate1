@@ -4,21 +4,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 
-@Entity
-@Table(name = "users")
+
+@Table
 public class User implements Serializable {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstname")
+    @Column
     private String name;
 
-    @Column(name = "lastname")
+    @Column
     private String lastName;
 
-    @Column(name = "age")
+    @Column
     private Byte age;
 
     public User() {
