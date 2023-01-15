@@ -24,7 +24,7 @@ public class Util {
 
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String HOST = "jdbc:mysql://localhost:3306/mydb?allowPublicKeyRetrieval=true&useSSL=false&allowMultiQueries=true&serverTimezone=UTC";
+    private static final String HOST = "jdbc:mysql://localhost:3306/test?allowPublicKeyRetrieval=true&useSSL=false&allowMultiQueries=true&serverTimezone=UTC";
     private static final String LOGIN = "root";
     private static final String PASSWORD = "root";
     private static SessionFactory sessionFactory = null;
@@ -58,13 +58,13 @@ public class Util {
 
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
             // metadataSources.addAnnotatedClass(Player.class);
-            Metadata metadata = metadataSources.buildMetadata();
+//            Metadata metadata = metadataSources.buildMetadata();
 
             // here we build the SessionFactory (Hibernate 5.4)
-            sessionFactory = metadata.getSessionFactoryBuilder().build();
+//            sessionFactory = metadata.getSessionFactoryBuilder().build();
 //            Session session = sessionFactory.getCurrentSession();
 
-//            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (HibernateException e) {
             e.printStackTrace();
         }

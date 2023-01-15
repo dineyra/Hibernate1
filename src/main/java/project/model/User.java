@@ -3,11 +3,10 @@ package project.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
-
-@Table
+@Entity(name = "users")
 public class User implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
