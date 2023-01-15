@@ -1,12 +1,10 @@
 package project.dao;
-
 import project.model.User;
 import project.util.Util;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import java.util.ArrayList;
 import java.util.List;
 
