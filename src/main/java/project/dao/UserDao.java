@@ -1,6 +1,6 @@
-package jm.task.core.jdbc.dao;
+package project.dao;
 
-import jm.task.core.jdbc.model.User;
+import project.model.User;
 
 import java.sql.SQLException;
 import java.util.List;

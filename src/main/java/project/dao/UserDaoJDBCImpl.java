@@ -1,7 +1,7 @@
-package jm.task.core.jdbc.dao;
+package project.dao;
 
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
+import project.model.User;
+import project.util.Util;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS Users (id SERIAL, name varchar(255) NOT NULL, lastname varchar(255) NOT NULL, age tinyint NOT NULL)";
         try (Connection connection = Util.getConnection();
-        PreparedStatement PreparedStatement = connection.prepareStatement(sql);) {
+             PreparedStatement PreparedStatement = connection.prepareStatement(sql);) {
             PreparedStatement.executeUpdate(sql);
             System.out.println("Database has been created");
         } catch (Exception e) {

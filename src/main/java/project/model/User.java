@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.model;
+package project.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
